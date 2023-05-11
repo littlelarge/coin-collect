@@ -13,6 +13,9 @@ public class WindowsHandler : MonoBehaviour
     [Serializable]
     public struct WindowsPreset
     {
-        public ScoreWindow ScoreWindow;
+        public CompleteWindow Complete;
+        public FailWindow Fail;
+        public ScoreWindow Score;
+        public TimerWindow Timer;
     }
 }

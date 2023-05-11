@@ -1,22 +1,18 @@
 using UnityEngine;
-using Zenject;
 
 public class CoinActions : MonoBehaviour, ICollectable
 {
     #region Variables
 
-    private CoinFactory _coinFactory;
-    private WindowsHandler _windowsHandler;
+    private Coin _coin;
 
     #endregion
 
-    #region Constructors
+    #region UnityMethods
 
-    [Inject]
-    private void Construct(CoinFactory coinFactory, WindowsHandler windowsHandler)
+    private void Awake()
     {
-        _coinFactory = coinFactory;
-        _windowsHandler = windowsHandler;
+        _coin = GetComponent<Coin>();
     }
 
     #endregion
@@ -25,14 +21,7 @@ public class CoinActions : MonoBehaviour, ICollectable
     
     public void Collect()
     {
-        Destroy(gameObject);
-
-        _coinFactory.Create();
-        
-        _windowsHandler.Windows.ScoreWindow.IncreaseScore(1);
-
-        Instantiate(
-            Resources.Load<ParticleSystem>($"VFX/Explosion"), transform.position, Quaternion.identity, null);
+        _coin.Events.OnCollect.Invoke();
     }
 
     #endregion

@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using Zenject;
 
 public class PlayerInput : MonoBehaviour
@@ -40,7 +39,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnClick()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
         {
             Vector2 mousePos = Input.mousePosition;
             
@@ -53,6 +52,11 @@ public class PlayerInput : MonoBehaviour
                 _playerFactory.Player.Movement.MoveTo(worldPos);
             }
         }
+    }
+
+    private bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     #endregion

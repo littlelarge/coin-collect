@@ -5,6 +5,7 @@ public class Coin : MonoBehaviour
     #region Variables
 
     public CoinActions Actions { get; private set; }
+    public CoinEvents Events { get; private set; }
 
     #endregion
 
@@ -13,6 +14,7 @@ public class Coin : MonoBehaviour
     private void Awake()
     {
         Actions = GetComponent<CoinActions>();
+        Events = GetComponent<CoinEvents>();
     }
 
     #endregion

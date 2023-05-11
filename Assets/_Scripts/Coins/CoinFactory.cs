@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 public class CoinFactory : MonoBehaviour
 {
@@ -13,6 +11,7 @@ public class CoinFactory : MonoBehaviour
 
     private int _prevSpawnPointIndex;
     private DiContainer _diContainer;
+    private LevelFactory _levelFactory;
 
     public Coin Coin { get; private set; }
 
@@ -21,9 +20,10 @@ public class CoinFactory : MonoBehaviour
     #region Constructors
 
     [Inject]
-    private void Construct(DiContainer diContainer)
+    private void Construct(DiContainer diContainer, LevelFactory levelFactory)
     {
         _diContainer = diContainer;
+        _levelFactory = levelFactory;
     }
 
     #endregion
@@ -43,7 +43,20 @@ public class CoinFactory : MonoBehaviour
             randomIndex = Random.Range(0, _spawnPoints.Length);
 
         Coin = 
-            _diContainer.InstantiatePrefabForComponent<Coin>(_coinPrefab, _spawnPoints[randomIndex].position, Quaternion.identity, null);
+            _diContainer.InstantiatePrefabForComponent<Coin>(_coinPrefab, _spawnPoints[randomIndex].position, Quaternion.identity, _levelFactory.Level.transform);
+
+        _prevSpawnPointIndex = randomIndex;
+    }
+    
+    public void Create(Transform parent)
+    {
+        int randomIndex = Random.Range(0, _spawnPoints.Length);
+
+        while (randomIndex == _prevSpawnPointIndex)
+            randomIndex = Random.Range(0, _spawnPoints.Length);
+
+        Coin = 
+            _diContainer.InstantiatePrefabForComponent<Coin>(_coinPrefab, _spawnPoints[randomIndex].position, Quaternion.identity, parent);
 
         _prevSpawnPointIndex = randomIndex;
     }

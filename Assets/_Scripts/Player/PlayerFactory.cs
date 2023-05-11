@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -26,9 +25,9 @@ public class PlayerFactory : MonoBehaviour
 
     #region Methods
 
-    public void Create()
+    public void Create(Transform parent)
     {
-        Player = _diContainer.InstantiatePrefabForComponent<Player>(_playerPrefab, Vector3.zero, Quaternion.identity, null);
+        Player = _diContainer.InstantiatePrefabForComponent<Player>(_playerPrefab, Vector3.zero, Quaternion.identity, parent);
     }
     
     #endregion

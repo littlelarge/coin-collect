@@ -6,7 +6,6 @@ public class LevelFactory : MonoBehaviour
     #region Variables
     
     private DiContainer _diContainer;
-    private Map _map;
 
     public Level Level { get; private set; }
 
@@ -15,20 +14,19 @@ public class LevelFactory : MonoBehaviour
     #region Constructors
 
     [Inject]
-    private void Construct(DiContainer diContainer, Map map)
+    private void Construct(DiContainer diContainer)
     {
         _diContainer = diContainer;
-        _map = map;
     }
 
     #endregion
     
     #region Methods
 
-    public void Create()
+    public void Create(Transform parent)
     {
         Level = _diContainer.InstantiatePrefabForComponent<Level>(Resources.Load<GameObject>($"Levels/Level_{1}"),
-            Vector3.zero, Quaternion.identity, _map.transform);
+            Vector3.zero, Quaternion.identity, parent);
     }
     
     #endregion

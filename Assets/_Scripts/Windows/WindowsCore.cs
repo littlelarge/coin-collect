@@ -4,12 +4,12 @@ public abstract class WindowsCore : MonoBehaviour
 {
     #region Methods
 
-    public void Show()
+    public virtual void Show()
     {
         gameObject.SetActive(true);
     }
 
-    public void Close()
+    public virtual void Close()
     {
         gameObject.SetActive(false);
     }

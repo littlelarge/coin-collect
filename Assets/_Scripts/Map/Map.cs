@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -8,19 +5,20 @@ public class Map : MonoBehaviour
 {
     #region Variables
 
-    private Level _level;
     private PlayerFactory _playerFactory;
     private LevelFactory _levelFactory;
+    private GameGlobalEvents _gameGlobalEvents;
 
     #endregion
 
     #region Constructors
 
     [Inject]
-    private void Construct(PlayerFactory playerFactory, LevelFactory levelFactory)
+    private void Construct(PlayerFactory playerFactory, LevelFactory levelFactory, GameGlobalEvents gameGlobalEvents)
     {
         _playerFactory = playerFactory;
         _levelFactory = levelFactory;
+        _gameGlobalEvents = gameGlobalEvents;
     }
 
     #endregion
@@ -38,11 +36,13 @@ public class Map : MonoBehaviour
 
     public void LoadLevel()
     {
-        if (_level != null)
-            Destroy(_level.gameObject);
+        if (_levelFactory.Level != null)
+            Destroy(_levelFactory.Level.gameObject);
 
-        _levelFactory.Create();
-        _playerFactory.Create();
+        _levelFactory.Create(transform);
+        _playerFactory.Create(_levelFactory.Level.transform);
+        
+        _gameGlobalEvents.OnLevelLoad.Invoke();
     }
     
     #endregion
