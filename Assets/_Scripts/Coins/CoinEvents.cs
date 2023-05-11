@@ -12,17 +12,19 @@ public class CoinEvents : MonoBehaviour
     private CoinFactory _coinFactory;
     private WindowsHandler _windowsHandler;
     private Timer _timer;
+    private GameManager _gameManager;
 
     #endregion
 
     #region Constructors
 
     [Inject]
-    private void Construct(CoinFactory coinFactory, WindowsHandler windowsHandler, Timer timer)
+    private void Construct(CoinFactory coinFactory, WindowsHandler windowsHandler, Timer timer, GameManager gameManager)
     {
         _coinFactory = coinFactory;
         _windowsHandler = windowsHandler;
         _timer = timer;
+        _gameManager = gameManager;
     }
 
     #endregion
@@ -44,7 +46,7 @@ public class CoinEvents : MonoBehaviour
 
     private void AddTime()
     {
-        _timer.AddTime(5f);
+        _timer.AddTime(_gameManager.TimeForAdd);
     }
 
     private void SelfDestruction()

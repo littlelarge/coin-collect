@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int _coinsToWin = 10;
     [SerializeField] private float _startTime = 15f;
+
+    [Header("Additionally")]
+    
+    [SerializeField] private float _timeForAdd = 5f;
     
     private WindowsHandler _windowsHandler;
 
@@ -18,6 +22,11 @@ public class GameManager : MonoBehaviour
     public float StartTime
     {
         get { return _startTime; }
+    }
+
+    public float TimeForAdd
+    {
+        get { return _timeForAdd; }
     }
     
     #endregion
