@@ -27,14 +27,7 @@ public class GameGlobalEvents : MonoBehaviour
     {
         _timer = timer;
         _windowsHandler = windowsHandler;
-    }
-
-    #endregion
-
-    #region UnityEvents
-
-    private void Start()
-    {
+        
         InitEvents();
     }
 
